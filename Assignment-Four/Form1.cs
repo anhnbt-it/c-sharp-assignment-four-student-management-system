@@ -301,7 +301,14 @@ namespace Assignment_Four
 
         private void pictAvatar_Validated(object sender, EventArgs e)
         {
-
+            if (openFileDialog1.FileName.Equals(""))
+            {
+                pictureErrorProvider.SetError(this.pictAvatar, "Avatar is required.");
+            }
+            else
+            {
+                pictureErrorProvider.SetError(this.pictAvatar, String.Empty);
+            }
         }
 
         private void ShowMyImage(String fileToDisplay, int xSize, int ySize)
