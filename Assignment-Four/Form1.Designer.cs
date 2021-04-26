@@ -184,6 +184,7 @@
             this.lstAvailabel.Name = "lstAvailabel";
             this.lstAvailabel.Size = new System.Drawing.Size(120, 121);
             this.lstAvailabel.TabIndex = 14;
+            this.lstAvailabel.SelectedValueChanged += new System.EventHandler(this.lstAvailabel_SelectedValueChanged);
             // 
             // lstSelected
             // 
@@ -201,6 +202,7 @@
             this.btnAdd.TabIndex = 16;
             this.btnAdd.Text = ">";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnRemove
             // 

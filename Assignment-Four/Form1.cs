@@ -22,6 +22,8 @@ namespace Assignment_Four
         private ErrorProvider phoneErrorProvider;
         private ErrorProvider pictureErrorProvider;
         private Bitmap myImage;
+        private DataTable dataTableAvailable;
+        private DataTable dataTableSelected;
         
         public StudentManage()
         {
@@ -64,6 +66,7 @@ namespace Assignment_Four
         {
             loadStudents();
             loadLanguage();
+            loadSelected();
         }
 
         private void loadStudents()
@@ -83,6 +86,11 @@ namespace Assignment_Four
             conn.Close();
         }
 
+        private void loadSelected()
+        {
+            // to do chua lam
+        }
+
         private void loadLanguage()
         {
             string queryString = "SELECT * FROM Language";
@@ -92,9 +100,9 @@ namespace Assignment_Four
                 conn.Open();
             }
             SqlDataAdapter dataAdapter = new SqlDataAdapter(queryString, conn);
-            DataTable dataTable = new DataTable();
-            dataAdapter.Fill(dataTable);
-            lstAvailabel.DataSource = dataTable;
+            dataTableAvailable = new DataTable();
+            dataAdapter.Fill(dataTableAvailable);
+            lstAvailabel.DataSource = dataTableAvailable;
             lstAvailabel.DisplayMember = "LanguageName";
             lstAvailabel.ValueMember = "LanguageID";
             conn.Close();
@@ -321,6 +329,18 @@ namespace Assignment_Four
             myImage = new Bitmap(fileToDisplay);
             pictAvatar.ClientSize = new Size(xSize, ySize);
             pictAvatar.Image = (Image)myImage;
+        }
+
+        private void lstAvailabel_SelectedValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (dataTableAvailable.Rows.Count > 0)
+            {
+                //DataRow row = dataTableAvailable
+            }
         }
 
     }
