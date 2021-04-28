@@ -1,4 +1,6 @@
-﻿namespace Assignment_Four
+﻿using System.Windows.Forms;
+
+namespace Assignment_Four
 {
     partial class StudentManage
     {
@@ -28,6 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.txtStudentID = new System.Windows.Forms.TextBox();
             this.lblStudents = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblAge = new System.Windows.Forms.Label();
@@ -51,9 +55,26 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.nameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ageErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.emailErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.phoneErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pictureErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictAvatar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nameErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ageErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emailErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureErrorProvider)).BeginInit();
             this.SuspendLayout();
+            // 
+            // txtStudentID
+            // 
+            this.txtStudentID.Location = new System.Drawing.Point(0, 0);
+            this.txtStudentID.Name = "txtStudentID";
+            this.txtStudentID.Size = new System.Drawing.Size(100, 20);
+            this.txtStudentID.TabIndex = 0;
             // 
             // lblStudents
             // 
@@ -125,9 +146,11 @@
             this.cboStudents.Name = "cboStudents";
             this.cboStudents.Size = new System.Drawing.Size(180, 21);
             this.cboStudents.TabIndex = 7;
+            this.cboStudents.SelectionChangeCommitted += new System.EventHandler(this.cboStudents_SelectionChangeCommitted);
             // 
             // txtName
             // 
+            this.nameErrorProvider.SetIconPadding(this.txtName, 2);
             this.txtName.Location = new System.Drawing.Point(86, 50);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(180, 20);
@@ -136,6 +159,7 @@
             // 
             // txtEmail
             // 
+            this.emailErrorProvider.SetIconPadding(this.txtEmail, 2);
             this.txtEmail.Location = new System.Drawing.Point(86, 110);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(180, 20);
@@ -144,6 +168,7 @@
             // 
             // txtPhone
             // 
+            this.phoneErrorProvider.SetIconPadding(this.txtPhone, 2);
             this.txtPhone.Location = new System.Drawing.Point(86, 140);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(180, 20);
@@ -152,6 +177,7 @@
             // 
             // nudAge
             // 
+            this.ageErrorProvider.SetIconPadding(this.nudAge, 2);
             this.nudAge.Location = new System.Drawing.Point(86, 80);
             this.nudAge.Name = "nudAge";
             this.nudAge.Size = new System.Drawing.Size(180, 20);
@@ -160,6 +186,7 @@
             // 
             // pictAvatar
             // 
+            this.pictureErrorProvider.SetIconPadding(this.pictAvatar, 2);
             this.pictAvatar.Location = new System.Drawing.Point(272, 20);
             this.pictAvatar.Name = "pictAvatar";
             this.pictAvatar.Size = new System.Drawing.Size(100, 100);
@@ -235,12 +262,14 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Enabled = false;
             this.btnDelete.Location = new System.Drawing.Point(200, 326);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 20;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnExit
             // 
@@ -255,6 +284,36 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // nameErrorProvider
+            // 
+            this.nameErrorProvider.BlinkRate = 200;
+            this.nameErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            this.nameErrorProvider.ContainerControl = this;
+            // 
+            // ageErrorProvider
+            // 
+            this.ageErrorProvider.BlinkRate = 200;
+            this.ageErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            this.ageErrorProvider.ContainerControl = this;
+            // 
+            // emailErrorProvider
+            // 
+            this.emailErrorProvider.BlinkRate = 200;
+            this.emailErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            this.emailErrorProvider.ContainerControl = this;
+            // 
+            // phoneErrorProvider
+            // 
+            this.phoneErrorProvider.BlinkRate = 200;
+            this.phoneErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            this.phoneErrorProvider.ContainerControl = this;
+            // 
+            // pictureErrorProvider
+            // 
+            this.pictureErrorProvider.BlinkRate = 200;
+            this.pictureErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            this.pictureErrorProvider.ContainerControl = this;
             // 
             // StudentManage
             // 
@@ -288,6 +347,11 @@
             this.Load += new System.EventHandler(this.StudentManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictAvatar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nameErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ageErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emailErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

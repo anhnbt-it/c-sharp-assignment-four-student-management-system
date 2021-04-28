@@ -1,0 +1,10 @@
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Release\Assignment-Four.exe.config
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Release\Assignment-Four.exe
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Release\Assignment-Four.pdb
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment-Four.csprojAssemblyReference.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment_Four.StudentManage.resources
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment_Four.Properties.Resources.resources
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment-Four.csproj.GenerateResource.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment-Four.csproj.CoreCompileInputs.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment-Four.exe
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Release\Assignment-Four.pdb

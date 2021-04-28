@@ -7,3 +7,13 @@ C:\Users\t1304i_nbtanh\Documents\assignment-four\Assignment-Four\obj\Debug\Assig
 C:\Users\t1304i_nbtanh\Documents\assignment-four\Assignment-Four\obj\Debug\Assignment-Four.csproj.GenerateResource.Cache
 C:\Users\t1304i_nbtanh\Documents\assignment-four\Assignment-Four\obj\Debug\Assignment-Four.exe
 C:\Users\t1304i_nbtanh\Documents\assignment-four\Assignment-Four\obj\Debug\Assignment-Four.pdb
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Debug\Assignment-Four.exe.config
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Debug\Assignment-Four.exe
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\bin\Debug\Assignment-Four.pdb
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment-Four.csprojAssemblyReference.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment_Four.StudentManage.resources
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment_Four.Properties.Resources.resources
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment-Four.csproj.GenerateResource.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment-Four.csproj.CoreCompileInputs.cache
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment-Four.exe
+C:\Users\anhnb\Downloads\hanoi-aptech\project\c-sharp-assignment-four-student-management-system\Assignment-Four\obj\Debug\Assignment-Four.pdb

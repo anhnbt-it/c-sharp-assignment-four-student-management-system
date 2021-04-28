@@ -15,7 +15,7 @@ namespace Assignment_Four
     public partial class StudentManage : Form
     {
 
-        private string connectionString = "SERVER=LAB35\\SQL2012;DataBase=C0501L_WinForm;uid=lab;pwd=";
+        private string connectionString = "SERVER=DESKTOP-DELL\\SQLEXPRESS;DataBase=C0501L_WinForm;uid=sa;pwd=KhoaiTay@2019";
         private ErrorProvider nameErrorProvider;
         private ErrorProvider ageErrorProvider;
         private ErrorProvider emailErrorProvider;
@@ -24,42 +24,16 @@ namespace Assignment_Four
         private Bitmap myImage;
         private DataTable dataTableAvailable;
         private DataTable dataTableSelected;
-        
+        private TextBox txtStudentID;
+
         public StudentManage()
         {
             InitializeComponent();
+        }
 
-            // Create and set the ErrorProvider for each data entry control.
-            nameErrorProvider = new ErrorProvider();
-            nameErrorProvider.SetIconAlignment(txtName, ErrorIconAlignment.MiddleRight);
-            nameErrorProvider.SetIconPadding(txtName, 2);
-            nameErrorProvider.BlinkRate = 200;
-            nameErrorProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
-
-
-            ageErrorProvider = new ErrorProvider();
-            ageErrorProvider.SetIconAlignment(nudAge, ErrorIconAlignment.MiddleRight);
-            ageErrorProvider.SetIconPadding(nudAge, 2);
-            ageErrorProvider.BlinkRate = 200;
-            ageErrorProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
-
-            emailErrorProvider = new ErrorProvider();
-            emailErrorProvider.SetIconAlignment(txtEmail, ErrorIconAlignment.MiddleRight);
-            emailErrorProvider.SetIconPadding(txtEmail, 2);
-            emailErrorProvider.BlinkRate = 200;
-            emailErrorProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
-
-            phoneErrorProvider = new ErrorProvider();
-            phoneErrorProvider.SetIconAlignment(txtPhone, ErrorIconAlignment.MiddleRight);
-            phoneErrorProvider.SetIconPadding(txtPhone, 2);
-            phoneErrorProvider.BlinkRate = 200;
-            phoneErrorProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
-
-            pictureErrorProvider = new ErrorProvider();
-            pictureErrorProvider.SetIconAlignment(pictAvatar, ErrorIconAlignment.MiddleRight);
-            pictureErrorProvider.SetIconPadding(pictAvatar, 2);
-            pictureErrorProvider.BlinkRate = 200;
-            pictureErrorProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
+        public StudentManage(string connectionString)
+        {
+            this.connectionString = connectionString;
         }
 
         private void StudentManage_Load(object sender, EventArgs e)
@@ -130,6 +104,11 @@ namespace Assignment_Four
             btnAddNew.Text = "Add New";
             btnUpdate.Text = "Update";
             btnDelete.Enabled = true;
+            txtName.Text = "";
+            txtEmail.Text = "";
+            txtPhone.Text = "";
+            nudAge.Value = 0;
+            pictAvatar.Image = null;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -148,19 +127,45 @@ namespace Assignment_Four
         {
             try
             {
+                string queryString = null;
+                SqlCommand command = null;
+                SqlConnection conn = new SqlConnection(connectionString);
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
                 if (cboStudents.Enabled)
                 {
-                    // todo
+                    queryString = "UPDATE Student SET StudentName = @StudentName, Age = @Age, Email = @Email, Phone = @Phone, ImagePath = @ImagePath WHERE StudentID = @StudentID";
+                    command = new SqlCommand(queryString, conn);
+                    command.Parameters.Add("@StudentName", SqlDbType.NVarChar);
+                    command.Parameters["@StudentName"].Value = txtName.Text;
+                    command.Parameters.Add("@Age", SqlDbType.Int);
+                    command.Parameters["@Age"].Value = nudAge.Value;
+                    command.Parameters.Add("@Email", SqlDbType.NVarChar);
+                    command.Parameters["@Email"].Value = txtEmail.Text;
+                    command.Parameters.Add("@Phone", SqlDbType.NVarChar);
+                    command.Parameters["@Phone"].Value = txtPhone.Text;
+                    command.Parameters.Add("@ImagePath", SqlDbType.NVarChar);
+                    command.Parameters["@ImagePath"].Value = openFileDialog1.FileName;
+                    command.Parameters.Add("@StudentID", SqlDbType.Int);
+                    command.Parameters["@StudentID"].Value = txtStudentID.Text;
+                    Int32 rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Student updated successfully.");
+                        this.resetForm();
+                        this.loadStudents();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Student update failed.");
+                    }
                 }
                 else
                 {
-                    string queryString = "INSERT INTO Student (StudentName, Age, Email, Phone, ImagePath) VALUES (@StudentName, @Age, @Email, @Phone, @ImagePath);";
-                    SqlConnection conn = new SqlConnection(connectionString);
-                    if (conn.State == ConnectionState.Closed)
-                    {
-                        conn.Open();
-                    }
-                    SqlCommand command = new SqlCommand(queryString, conn);
+                    queryString = "INSERT INTO Student (StudentName, Age, Email, Phone, ImagePath) VALUES (@StudentName, @Age, @Email, @Phone, @ImagePath);";
+                    command = new SqlCommand(queryString, conn);
                     command.Parameters.Add("@StudentName", SqlDbType.NVarChar);
                     command.Parameters["@StudentName"].Value = txtName.Text;
                     command.Parameters.Add("@Age", SqlDbType.Int);
@@ -173,9 +178,16 @@ namespace Assignment_Four
                     command.Parameters["@ImagePath"].Value = openFileDialog1.FileName;
                     command.Connection = conn;
                     Int32 rowsAffected = command.ExecuteNonQuery();
-                    MessageBox.Show("RowsAffected {" + rowsAffected + "}");
-                    conn.Close();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Student created successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Insert student failed.");
+                    }
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -186,6 +198,7 @@ namespace Assignment_Four
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = "Pictures";
+            openFileDialog1.Filter = "Image Files (BMP,JPG,GIF)|*.BMP;*.JPG;*.GIF";
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -230,14 +243,17 @@ namespace Assignment_Four
 
         private void nudAge_Validated(object sender, EventArgs e)
         {
-            
+
             if (isAgeInValid())
             {
                 ageErrorProvider.SetError(this.nudAge, "Age is required.");
-            } else if (isAgeTooYoung())
+            }
+            else if (isAgeTooYoung())
             {
                 ageErrorProvider.SetError(this.nudAge, "Age not old enough. Age range come from 18 - 30");
-            } else if (isAgeTooOld()) {
+            }
+            else if (isAgeTooOld())
+            {
                 ageErrorProvider.SetError(this.nudAge, "Age is too old. Age range come from 18 - 30");
             }
             else
@@ -263,7 +279,7 @@ namespace Assignment_Four
                 }
             }
 
-            errorMessage = "Email address must be valid email address format.\n" + 
+            errorMessage = "Email address must be valid email address format.\n" +
                 "For example 'someone@example.com'";
             return false;
 
@@ -283,9 +299,11 @@ namespace Assignment_Four
         private void txtEmail_Validated(object sender, EventArgs e)
         {
             string errorMsg;
-            if (!ValidEmailAddress(this.txtEmail.Text, out errorMsg)) {
+            if (!ValidEmailAddress(this.txtEmail.Text, out errorMsg))
+            {
                 emailErrorProvider.SetError(this.txtEmail, errorMsg);
-            } else 
+            }
+            else
             {
                 emailErrorProvider.SetError(this.txtEmail, String.Empty);
             }
@@ -297,7 +315,8 @@ namespace Assignment_Four
             {
 
                 phoneErrorProvider.SetError(this.txtPhone, "Phone is required.");
-            } else if (!phoneIsNumeric())
+            }
+            else if (!phoneIsNumeric())
             {
                 phoneErrorProvider.SetError(this.txtPhone, "Invalid phone number.");
             }
@@ -343,5 +362,82 @@ namespace Assignment_Four
             }
         }
 
+        private void cboStudents_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboStudents.SelectedIndex > 0)
+                {
+                    string queryString = "SELECT StudentID, StudentName, Age, Email, Phone, ImagePath FROM Student WHERE StudentID = @StudentID";
+                    SqlConnection connection = new SqlConnection(connectionString);
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    command.Parameters.Add("@StudentID", SqlDbType.Int);
+                    command.Parameters["@StudentID"].Value = cboStudents.SelectedValue;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        txtStudentID.Text = reader["StudentID"].ToString();
+                        txtName.Text = reader["StudentName"].ToString();
+                        txtEmail.Text = reader["Email"].ToString();
+                        Int32 age = (int)reader["Age"];
+                        if (age > 0)
+                        {
+                            nudAge.Value = age;
+                        }
+                        txtPhone.Text = reader["Phone"].ToString();
+                        string imagePath = reader["ImagePath"].ToString();
+                        if (!String.IsNullOrEmpty(imagePath))
+                        {
+                            ShowMyImage(reader.GetString(5), 100, 100);
+                        }
+                        btnDelete.Enabled = true;
+                    }
+
+                    reader.Close();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(txtStudentID.Text))
+                {
+                    string queryString = "DELETE FROM Student WHERE StudentID = @StudentID";
+                    SqlConnection connection = new SqlConnection(connectionString);
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    command.Parameters.Add("@StudentID", SqlDbType.Int);
+                    command.Parameters["@StudentID"].Value = txtStudentID.Text;
+                    Int32 rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Student deleted successfully.");
+                        this.loadStudents();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Delete Student failed.");
+                    }
+                    connection.Close();
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
